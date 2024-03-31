@@ -1,4 +1,4 @@
-package br.com.lbnetwork.syslibrary.models;
+package br.com.lbnetwork.syslibrary.models.book;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -9,32 +9,37 @@ import java.util.Date;
 import java.util.UUID;
 
 @Entity
-@Table(name = "category")
-public class CategoryModel extends RepresentationModel<CategoryModel> implements Serializable{
+@Table(name = "publisher")
+public class PublisherModel extends RepresentationModel<PublisherModel> implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @NotNull
-    @Column(name = "category_id_pk")
-    private UUID idCategory;
+    @Column(name = "publisher_id_pk")
+    private UUID idPublisher;
 
     @NotNull
     @Column(name = "name")
     private String name;
 
+    @Column(name = "contact")
+    private String contact;
+
     @NotNull
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created_at")
     private Date createdAt;
 
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "updated_at")
     private Date updatedAt;
 
-    public UUID getIdCategory() {
-        return idCategory;
+    public UUID getIdPublisher() {
+        return idPublisher;
     }
 
-    public void setIdCategory(UUID idCategory) {
-        this.idCategory = idCategory;
+    public void setIdPublisher(UUID idPublisher) {
+        this.idPublisher = idPublisher;
     }
 
     public String getName() {
@@ -43,6 +48,14 @@ public class CategoryModel extends RepresentationModel<CategoryModel> implements
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getContact() {
+        return contact;
+    }
+
+    public void setContact(String contact) {
+        this.contact = contact;
     }
 
     public Date getCreatedAt() {

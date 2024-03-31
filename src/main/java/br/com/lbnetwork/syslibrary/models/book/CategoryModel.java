@@ -1,9 +1,6 @@
-package br.com.lbnetwork.syslibrary.models;
+package br.com.lbnetwork.syslibrary.models.book;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.hateoas.RepresentationModel;
 
@@ -11,35 +8,34 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.UUID;
 
-public class PublisherModel extends RepresentationModel<PublisherModel> implements Serializable {
+@Entity
+@Table(name = "category")
+public class CategoryModel extends RepresentationModel<CategoryModel> implements Serializable{
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @NotNull
-    @Column(name = "publisher_id_pk")
-    private UUID idPublisher;
+    @Column(name = "category_id_pk")
+    private UUID idCategory;
 
     @NotNull
     @Column(name = "name")
     private String name;
 
-    @Column(name = "contact")
-    private String contact;
-
     @NotNull
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created_at")
     private Date createdAt;
-
-    @NotNull
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "updated_at")
     private Date updatedAt;
 
-    public UUID getIdPublisher() {
-        return idPublisher;
+    public UUID getIdCategory() {
+        return idCategory;
     }
 
-    public void setIdPublisher(UUID idPublisher) {
-        this.idPublisher = idPublisher;
+    public void setIdCategory(UUID idCategory) {
+        this.idCategory = idCategory;
     }
 
     public String getName() {
@@ -48,14 +44,6 @@ public class PublisherModel extends RepresentationModel<PublisherModel> implemen
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getContact() {
-        return contact;
-    }
-
-    public void setContact(String contact) {
-        this.contact = contact;
     }
 
     public Date getCreatedAt() {

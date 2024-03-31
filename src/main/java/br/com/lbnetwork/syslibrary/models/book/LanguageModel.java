@@ -1,4 +1,4 @@
-package br.com.lbnetwork.syslibrary.models;
+package br.com.lbnetwork.syslibrary.models.book;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -23,9 +23,10 @@ public class LanguageModel extends RepresentationModel<LanguageModel> implements
     private String name;
 
     @NotNull
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created_at")
     private Date createdAt;
-
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "updated_at")
     private Date updatedAt;
 

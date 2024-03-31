@@ -1,4 +1,4 @@
-package br.com.lbnetwork.syslibrary.models;
+package br.com.lbnetwork.syslibrary.models.user;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -9,40 +9,41 @@ import java.util.Date;
 import java.util.UUID;
 
 @Entity
-@Table(name = "author")
-public class AuthorModel extends RepresentationModel<AuthorModel> implements Serializable {
-    private static final long serialVersionUID = 1L;
+@Table(name = "role")
+public class RoleModel extends RepresentationModel<RoleModel> implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @NotNull
-    @Column(name = "author_id_pk")
-    private UUID idAuthor;
+    @Column(name = "role_id_pk")
+    private UUID idRole;
 
     @NotNull
-    @Column(name = "full_name")
-    private String fullName;
+    @Column(name = "role", nullable = false)
+    private String role;
 
     @NotNull
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "created_at")
     private Date createdAt;
 
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "updated_at")
     private Date updatedAt;
 
-    public UUID getIdAuthor() {
-        return idAuthor;
+    public UUID getIdRole() {
+        return idRole;
     }
 
-    public void setIdAuthor(UUID idAuthor) {
-        this.idAuthor = idAuthor;
+    public void setIdRole(UUID idRole) {
+        this.idRole = idRole;
     }
 
-    public String getFullName() {
-        return fullName;
+    public String getRole() {
+        return role;
     }
 
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
+    public void setRole(String role) {
+        this.role = role;
     }
 
     public Date getCreatedAt() {
