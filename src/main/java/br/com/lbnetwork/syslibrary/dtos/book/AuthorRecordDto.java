@@ -5,6 +5,6 @@ import jakarta.validation.constraints.NotNull;
 import java.util.Date;
 
 public record AuthorRecordDto(@NotNull String fullName,
-                              @NotNull Date createdAt,
+                              Date createdAt,
                               Date updatedAt) {
 }
