@@ -18,6 +18,6 @@ public record BookRecordDto(@NotNull String title,
                             String summary,
                             @NotNull String isbn,
                             Integer copy,
-                            @NotNull Date createdAt,
+                            Date createdAt,
                             Date updatedAt) {
 }

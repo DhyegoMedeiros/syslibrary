@@ -6,6 +6,6 @@ import java.util.Date;
 
 public record PublisherRecordDto(@NotNull String name,
                                  String contact,
-                                 @NotNull Date createdAt,
+                                 Date createdAt,
                                  Date updatedAt) {
 }
