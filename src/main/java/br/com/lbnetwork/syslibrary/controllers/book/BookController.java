@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -90,5 +91,18 @@ public class BookController {
         return ResponseEntity.status(HttpStatus.CREATED).body(bookRepository.save(bookModel));
     }
 
+    @GetMapping("/books")
+    public ResponseEntity<List<BookModel>> getAllBooks(){
+        return ResponseEntity.status(HttpStatus.OK).body(bookRepository.findAll());
+    }
+
+    @GetMapping("/books/{id}")
+    public ResponseEntity<Object> getBookById(@PathVariable(value = "id")UUID id){
+        Optional<BookModel> bookModelOptional = bookRepository.findById(id);
+        if (bookModelOptional.isEmpty()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Author not found with the given ID: " +id);
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(bookModelOptional.get());
+    }
 
 }
