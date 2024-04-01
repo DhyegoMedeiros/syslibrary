@@ -18,7 +18,7 @@ public class CategoryController {
     @Autowired
     CategoryRepository categoryRepository;
 
-    @PostMapping("/category")
+    @PostMapping("/categories")
     public ResponseEntity<CategoryModel> createCategory(@RequestBody @Valid CategoryRecordDto categoryRecordDto){
         var categoryModelOptional = categoryRepository.findByName(categoryRecordDto.name());
         if (categoryModelOptional.isPresent()){
@@ -32,12 +32,12 @@ public class CategoryController {
         return ResponseEntity.status(HttpStatus.CREATED).body(categoryRepository.save(categoryModel));
     }
 
-    @GetMapping("/category")
+    @GetMapping("/categories")
     public ResponseEntity<List<CategoryModel>> getAllCategories(){
         return ResponseEntity.status(HttpStatus.OK).body(categoryRepository.findAll());
     }
 
-    @GetMapping("/category/{id}")
+    @GetMapping("/categories/{id}")
     public ResponseEntity<Object> getCategoryById(@PathVariable(value = "id")UUID id){
         Optional<CategoryModel> categoryObject = categoryRepository.findById(id);
         if (categoryObject.isEmpty()){
@@ -46,7 +46,7 @@ public class CategoryController {
         return ResponseEntity.status(HttpStatus.OK).body(categoryObject.get());
     }
 
-    @PutMapping("/category/{id}")
+    @PutMapping("/categories/{id}")
     public ResponseEntity updateCategory(@PathVariable(value = "id")UUID id,
                                          @RequestBody @Valid CategoryRecordDto categoryRecordDto){
         Optional<CategoryModel> categoryObject = categoryRepository.findById(id);
@@ -54,15 +54,15 @@ public class CategoryController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No category located in the database checks the UUID provided in the request.");
         }
         var categoryModel = categoryObject.get();
-        var data = categoryObject.get().getUpdatedAt();
+        var data = categoryObject.get().getCreatedAt();
         BeanUtils.copyProperties(categoryRecordDto, categoryModel);
-        categoryModel.setCreatedAt(new Date());
-        categoryModel.setUpdatedAt(data);
+        categoryModel.setCreatedAt(data);
+        categoryModel.setUpdatedAt(new Date());
         categoryModel.setName(categoryRecordDto.name().toUpperCase());
         return ResponseEntity.status(HttpStatus.OK).body(categoryRepository.save(categoryModel));
     }
 
-    @DeleteMapping("/category/{id}")
+    @DeleteMapping("/categories/{id}")
     public ResponseEntity<Object> deleteCategory(@PathVariable(value = "id") UUID id){
         Optional<CategoryModel> categoryObject = categoryRepository.findById(id);
         if (categoryObject.isEmpty()){

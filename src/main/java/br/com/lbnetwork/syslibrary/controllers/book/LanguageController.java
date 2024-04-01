@@ -18,7 +18,7 @@ public class LanguageController {
     @Autowired
     LanguageRepository languageRepository;
 
-    @PostMapping("/language")
+    @PostMapping("/languages")
     public ResponseEntity<LanguageModel> createLanguage(@RequestBody @Valid LanguageRecordDto languageRecordDto){
         var languageModelOptional = languageRepository.findByName(languageRecordDto.name());
         if (languageModelOptional.isPresent()){
@@ -32,12 +32,12 @@ public class LanguageController {
         return ResponseEntity.status(HttpStatus.CREATED).body(languageRepository.save(languageModel));
     }
 
-    @GetMapping("/language")
+    @GetMapping("/languages")
     public ResponseEntity<List<LanguageModel>> getAllLanguages(){
         return ResponseEntity.status(HttpStatus.OK).body(languageRepository.findAll());
     }
 
-    @GetMapping("/language/{id}")
+    @GetMapping("/languages/{id}")
     public ResponseEntity<Object> getLanguageById(@PathVariable(value = "id")UUID id){
         Optional<LanguageModel> languageObject = languageRepository.findById(id);
         if (languageObject.isEmpty()){
@@ -46,7 +46,7 @@ public class LanguageController {
         return ResponseEntity.status(HttpStatus.OK).body(languageObject.get());
     }
 
-    @PutMapping("/language/{id}")
+    @PutMapping("/languages/{id}")
     public ResponseEntity updateLanguage(@PathVariable(value = "id")UUID id,
                                          @RequestBody @Valid LanguageRecordDto languageRecordDto){
         Optional<LanguageModel> languageObject = languageRepository.findById(id);
@@ -54,15 +54,15 @@ public class LanguageController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No language located in the database. Please check the UUID provided in the request.");
         }
         var languageModel = languageObject.get();
-        var data = languageObject.get().getUpdatedAt();
+        var data = languageObject.get().getCreatedAt();
         BeanUtils.copyProperties(languageRecordDto, languageModel);
-        languageModel.setCreatedAt(new Date());
-        languageModel.setUpdatedAt(data);
+        languageModel.setCreatedAt(data);
+        languageModel.setUpdatedAt(new Date());
         languageModel.setName(languageRecordDto.name().toUpperCase());
         return ResponseEntity.status(HttpStatus.OK).body(languageRepository.save(languageModel));
     }
 
-    @DeleteMapping("/language/{id}")
+    @DeleteMapping("/languages/{id}")
     public ResponseEntity<Object> deleteLanguage(@PathVariable(value = "id") UUID id){
         Optional<LanguageModel> languageObject = languageRepository.findById(id);
         if (languageObject.isEmpty()){
