@@ -1,8 +1,8 @@
 package br.com.lbnetwork.syslibrary.models.book;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
 import org.springframework.hateoas.RepresentationModel;
 
 import java.io.Serializable;
@@ -26,25 +26,28 @@ public class BookModel extends RepresentationModel<BookModel> implements Seriali
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "author_id_fk", nullable = false)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private AuthorModel author;
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id_fk", nullable = false)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private CategoryModel category;
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "language_id_fk", nullable = false)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private LanguageModel language;
 
     @NotNull
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "publisher_id_fk", nullable = false)
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private PublisherModel publisher;
 
     @NotNull
-    @Pattern(regexp = "^(19|20)\\d{2}$", message = "The book's publication year must be in YYYY format and between 1900 and 2099.")
     @Column(name = "publication_year", nullable = false)
     private Integer publicationYear;
 
