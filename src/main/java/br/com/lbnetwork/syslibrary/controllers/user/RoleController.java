@@ -22,13 +22,13 @@ public class RoleController {
 
     @PostMapping("/role")
     public ResponseEntity<?> roleCreate(@RequestBody @Valid RoleRecordDto roleRecordDto){
-        var roleOptional = roleRepository.findByRole(roleRecordDto.role());
+        var roleOptional = roleRepository.findByRole("ROLE_"+roleRecordDto.role());
         if (roleOptional.isPresent()){
             return ResponseEntity.status(HttpStatus.CONFLICT).body(roleOptional.get());
         }
         var roleModel = new RoleModel();
         BeanUtils.copyProperties(roleRecordDto, roleModel);
-        roleModel.setRole(roleRecordDto.role().toUpperCase().trim());
+        roleModel.setRole("ROLE_"+roleRecordDto.role().toUpperCase().trim());
         roleModel.setCreatedAt(new Date());
         roleModel.setUpdatedAt(new Date());
         return ResponseEntity.status(HttpStatus.CREATED).body(roleRepository.save(roleModel));
@@ -60,7 +60,7 @@ public class RoleController {
         BeanUtils.copyProperties(roleRecordDto, roleModel);
         roleModel.setCreatedAt(data);
         roleModel.setUpdatedAt(new Date());
-        roleModel.setRole(roleRecordDto.role());
+        roleModel.setRole("ROLE_"+roleRecordDto.role());
         return ResponseEntity.status(HttpStatus.OK).body(roleRepository.save(roleModel));
     }
 
