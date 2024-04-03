@@ -12,6 +12,6 @@ public record UserRecordDto(@NotNull String username,
                             @NotNull String address,
                             @NotNull String email,
                             @NotNull String phone,
-                            @NotNull Date createdAt,
+                            Date createdAt,
                             Date updatedAt) {
 }
