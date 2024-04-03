@@ -60,7 +60,6 @@ public class RoleController {
         BeanUtils.copyProperties(roleRecordDto, roleModel);
         roleModel.setCreatedAt(data);
         roleModel.setUpdatedAt(new Date());
-        roleModel.setRole("ROLE_"+roleRecordDto.role());
         return ResponseEntity.status(HttpStatus.OK).body(roleRepository.save(roleModel));
     }
 
